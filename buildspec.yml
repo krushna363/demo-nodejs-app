@@ -9,6 +9,7 @@ phases:
       - npm install yarn -g
       - export DATE=$(date +"%d-%m-%y")
       - export CI=true
+      - export PATH=$PATH:build
   pre_build:
     commands:
       - echo Checking Docker...
@@ -35,5 +36,5 @@ phases:
   build:
     commands:
       - echo Build phase...
-      - ./build.sh
+      - build.sh
      
