@@ -1,0 +1,37 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Install phase...
+      - printenv
+      - npm install mocha -g
+      - npm install yarn -g
+      - export DATE=$(date +"%d-%m-%y")
+      - export CI=true
+  pre_build:
+    commands:
+      - echo Checking Docker...
+      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2&
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+      - docker version
+
+      - echo Environment Check...
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - echo $AWS_ACCOUNT
+      - REPOSITORY_URI=400350885089.dkr.ecr.us-east-1.amazonaws.com/demo-repo-dev
+      - IMAGE_TAG=latest
+      - echo Building the Docker image...
+      - echo $REPOSITORY_URI
+      - docker build --build-arg environment=$ENV -t $REPOSITORY_URI:$IMAGE_TAG .
+      - echo Build Repository complete...
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Docker push complete on `date`
+  build:
+    commands:
+      - echo Build phase...
+      - build.sh
+     
