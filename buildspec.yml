@@ -19,7 +19,7 @@ phases:
       - echo Environment Check...
       - echo Logging in to Amazon ECR...
       - aws --version
-      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email
       - echo $AWS_ACCOUNT
       - REPOSITORY_URI=400350885089.dkr.ecr.us-east-1.amazonaws.com/demo-repo-dev
       - IMAGE_TAG=latest
