@@ -53,7 +53,7 @@ function build() {
   #    -Dsonar.tests=test \
   #    -Dsonar.javascript.lcov.reportPaths=coverage/unit/lcov.info
 
-
+}
 if [ "$ENV" = "dev" ] || [ "$ENV" = "nonprod" ]; then
   echo "Performing build..."
   build
