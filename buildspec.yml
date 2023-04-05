@@ -19,7 +19,8 @@ phases:
       - echo Environment Check...
       - echo Logging in to Amazon ECR...
       - aws --version
-      - eval $(aws ecr get-login --registry-ids 400350885089 --region us-east-1 --no-include-email)
+      - aws ecr get-login-password | docker login --username AWS --password-stdin 400350885089.dkr.ecr.us-east-1.amazonaws.com
+      # - eval $(aws ecr get-login --registry-ids 400350885089 --region us-east-1 --no-include-email)
       - echo $AWS_ACCOUNT
       - REPOSITORY_URI=400350885089.dkr.ecr.us-east-1.amazonaws.com/demo-repo-dev
       - IMAGE_TAG=latest
@@ -28,7 +29,7 @@ phases:
       - docker build --build-arg environment=$ENV -t $REPOSITORY_URI:$IMAGE_TAG .
       - echo Build Repository complete...
       - echo Pushing the Docker images...
-      - eval $(aws ecr get-login --registry-ids 400350885089 --region us-east-1 --no-include-email)
+      # - eval $(aws ecr get-login --registry-ids 400350885089 --region us-east-1 --no-include-email)
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Docker push complete on `date`
   build:
