@@ -63,7 +63,7 @@ if [ -f build/pre-deploy.sh ]; then
   . ./build/pre-deploy.sh
 fi
 
-echo "Running sls deploy..."
+echo "Running ecs deploy..."
 
 
 if [ -f build/post-deploy.sh ]; then

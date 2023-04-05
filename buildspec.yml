@@ -35,5 +35,5 @@ phases:
   build:
     commands:
       - echo Build phase...
-      - build.sh
+      - ./build.sh
      
