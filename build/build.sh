@@ -50,10 +50,10 @@ function build() {
   #    -Dsonar.javascript.lcov.reportPaths=coverage/unit/lcov.info
 
 }
-# if [ "$ENV" = "dev" ] || [ "$ENV" = "nonprod" ]; then
+if [ "$ENV" = "dev" ] || [ "$ENV" = "nonprod" ]; then
   echo "Performing build..."
   build
-# fi
+fi
 
 if [ -f build/pre-deploy.sh ]; then
   . ./build/pre-deploy.sh
