@@ -8,7 +8,8 @@
     "unit": "",
     "audit": "",
     "eslint": "",
-    "integration": ""
+    "integration": "",
+    "system": ""
   },
   "author": "buraku",
   "license": "MIT-0",
