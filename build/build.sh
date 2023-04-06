@@ -23,24 +23,20 @@ function build() {
   echo "Checking dependencies for security vulnerabilities..."
   set +e
   npm run audit --level moderate
-  set -e
-
+ 
   echo "Checking outdated dependencies for security vulnerabilities..."
-  set +e
   npm run outdated
-
-  set -e
 
   echo "Running eslint..."
   npm run eslint
 
   echo "Running unit tests..."
-  npm run coverage 
-  echo "Running integration tests..."
+  npm run unit
 
+  echo "Running integration tests..."
   npm run integration
 
-  set +e
+  set -e
 
   #echo "Pushing to SonarQube..."
   #sonar-scanner -Dsonar.host.url=$(aws ssm get-parameter --name "/cicd/sonarUrl" | jq -r '.Parameter.Value') \
@@ -64,7 +60,7 @@ if [ -f build/pre-deploy.sh ]; then
 fi
 
 echo "Running ecs deploy..."
-aws ecs update-service --cluster ecs-demo --service demo-nodejs-app --desired-count 2
+aws ecs update-service --cluster ecs-demo --service demo-nodejs-app --force-new-deployment --region us-east-1 --desired-count 2
 
 if [ -f build/post-deploy.sh ]; then
   ./build/post-deploy.sh

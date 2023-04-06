@@ -5,7 +5,7 @@
   "main": "calculator.js",
   "scripts": {
     "start": "node calculator.js",
-    "coverage": "",
+    "unit": "",
     "audit": "",
     "eslint": "",
     "integration": ""
