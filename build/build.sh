@@ -64,7 +64,7 @@ if [ -f build/pre-deploy.sh ]; then
 fi
 
 echo "Running ecs deploy..."
-
+aws ecs update-service --cluster ecs-demo --service demo-nodejs-app --desired-count 2
 
 if [ -f build/post-deploy.sh ]; then
   ./build/post-deploy.sh
